@@ -21,15 +21,8 @@ var picturesLib = [
 ];
 
 $(document).ready(function () {
-    $("#but").click(function () {
-        console.log('111');
-        $("#currentPic").attr("src", "http://adisey-ru.1gb.ru/photos/panorams/data/img_1747_p-1200.jpg");
-        var aa = $('#currentPic');
-        console.log(aa);
-    });
-    
-    function preloadPic() {
-        
+      function preloadPic() {
+
     }
     
     
