@@ -1,6 +1,4 @@
 'use strict';
-
-
 var picturesLib = [
     ["Slide 01", "http://adisey-ru.1gb.ru/photos/panorams/data/DSC4344_P-th1.jpg"],
     ["Slide 02", "http://adisey-ru.1gb.ru/photos/panorams/data/dsc_0893_1000.jpg"],
@@ -19,12 +17,83 @@ var picturesLib = [
     ["Slide 15", "http://adisey-ru.1gb.ru/photos/panorams/data/img_9079-p.jpg"],
     ["Slide 16", "http://adisey-ru.1gb.ru/photos/panorams/data/p5-w4.jpg"]
 ];
+var slideNow = 1;
+var slideCount = 0;
+
+var translateWidth = 0;
+var slideInterval = 2000;
+
+function nextSlide() {
+    if (slideNow == slideCount || slideNow <= 0 || slideNow > slideCount) {
+        $('#slidewrapper').css('transform', 'translate(0, 0)');
+        slideNow = 1;
+    } else {
+        translateWidth = -$('#viewport').width() * (slideNow);
+        $('#slidewrapper').css({
+            'transform': 'translate(' + translateWidth + 'px, 0)',
+            '-webkit-transform': 'translate(' + translateWidth + 'px, 0)',
+            '-ms-transform': 'translate(' + translateWidth + 'px, 0)',
+        });
+        slideNow++;
+    }
+}
+
 
 $(document).ready(function () {
-      function preloadPic() {
+    slideCount =  $('#slidewrapper').children().length;
+    var switchInterval = setInterval(nextSlide, slideInterval);
 
-    }
-    
-    
-    preloadPic();
+    $('#viewport').hover(function(){
+        clearInterval(switchInterval);
+    },function() {
+        switchInterval = setInterval(nextSlide, slideInterval);
+    });
+
+
+
+
+
+
+
+
+    // function preloadPic() {
+    //     $("#slideName").text(picturesLib[0][0]);
+    //     $('#currentPic').attr("alt", picturesLib[0][0]);
+    //     $('#currentPic').attr("src", picturesLib[0][1]);
+    // }
+
+    // function loadImeges() {
+    //     // var primeItem = $("#slides-list").children();
+    //     // var primeA = $(primeItem).children;
+    //     //
+    //     // primeA.text = picturesLib[0][0];
+    //     // // console.log(primeEMenu);
+    //     // var newElems = $(primeA).clone();
+    //     // // console.log(newElems);
+    //     // $(".slide-item").clone().appendTo(".slides-list");
+    //
+    //     var aaa = $("#slides-list").children(0);
+    //     var newItem = $("aaa").clone();
+    //     newItem.appendTo(".slides-list");
+    //
+    //     // var bbb = aaa.children();
+    //     // .text = '123';
+    //
+    //
+    //
+    //
+    //     // var newItem = $(".slide-item").clone();
+    //     // newItem.appendTo(".slides-list");
+    //
+    //
+    //
+
+
+
+    //    }
+
+
+    // preloadPic();
+    // loadImeges();
+
 });
