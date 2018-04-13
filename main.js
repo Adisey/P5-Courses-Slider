@@ -17,42 +17,45 @@ var picturesLib = [
     ["Slide 15", "http://adisey-ru.1gb.ru/photos/panorams/data/img_9079-p.jpg"],
     ["Slide 16", "http://adisey-ru.1gb.ru/photos/panorams/data/p5-w4.jpg"]
 ];
-var slideNow = 1;
-var slideCount = 0;
-
-var translateWidth = 0;
-var slideInterval = 2000;
-
-function nextSlide() {
-    if (slideNow == slideCount || slideNow <= 0 || slideNow > slideCount) {
-        $('#slidewrapper').css('transform', 'translate(0, 0)');
-        slideNow = 1;
-    } else {
-        translateWidth = -$('#viewport').width() * (slideNow);
-        $('#slidewrapper').css({
-            'transform': 'translate(' + translateWidth + 'px, 0)',
-            '-webkit-transform': 'translate(' + translateWidth + 'px, 0)',
-            '-ms-transform': 'translate(' + translateWidth + 'px, 0)',
-        });
-        slideNow++;
-    }
-}
-
+var slideCurrent=1, slideCount;
 
 $(document).ready(function () {
-    slideCount =  $('#slidewrapper').children().length;
-    var switchInterval = setInterval(nextSlide, slideInterval);
+    slideCount =  $("#slidewrapper").children().length;
+    console.log(slideCount);
 
-    $('#viewport').hover(function(){
-        clearInterval(switchInterval);
-    },function() {
-        switchInterval = setInterval(nextSlide, slideInterval);
-    });
+    prevBtn.onclick = function(){
+        previousSlide();
+    };
 
+    nextBtn.onclick = function() {
+        nextSlide();
+    };
 
+    function nextSlide() {
+        var slideOld=slideCurrent;
+        slideCurrent++;
+        slideCurrent = (slideCurrent>slideCount || slideCurrent<1) ? 1: slideCurrent;
+        console.log(slideCurrent);
+        console.log($("#slidewrapper").children(0));
+        HideShowPic(slideOld, slideCurrent);
+        console.log($("#slidewrapper").children(0));
 
+        // goToSlide(currentSlide + 1);
+    };
+    function previousSlide() {
+        var slideOld=slideCurrent;
+        slideCurrent--;
+        slideCurrent = (slideCurrent>slideCount || slideCurrent<1) ? 4:slideCurrent;
+        console.log(slideCurrent);
+        // goToSlide(currentSlide - 1);
+    };
 
-
+function HideShowPic(hide, show) {
+    $("#slidewrapper").children(0).eq(hide-1).addClass('slide');
+    $("#slidewrapper").children(0).eq(hide-1).removeClass('slideView');
+    $("#slidewrapper").children(0).eq(show-1).addClass('slideView');
+    $("#slidewrapper").children(0).eq(show-1).removeClass('slide');
+}
 
 
 
