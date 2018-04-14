@@ -13,11 +13,11 @@ $(document).ready(function () {
         nextSlide();
     };
 
-    slideItem.onclick = function () {
-        console.log('+');
-
-    };
-
+    $('ul.slidesList li').click(function () {
+        var slideOld = slideCurrent;
+        slideCurrent = $(this).index() + 1;
+        HideShowPic(slideOld, slideCurrent);
+    });
 
     function nextSlide() {
         var slideOld = slideCurrent;
@@ -59,7 +59,16 @@ $(document).ready(function () {
         $("#slideName").text("Slide 0" + show);
     }
 
-
+    $('#main').bind('mousewheel', function(e){
+        if(e.originalEvent.wheelDelta /120 > 0) {
+            previousSlide();
+            console.log('scrolling up !');
+        }
+        else{
+            nextSlide();
+            console.log('scrolling down !');
+        }
+    });
     // function preloadPic() {
     //     $("#slideName").text(picturesLib[0][0]);
     //     $('#currentPic').attr("alt", picturesLib[0][0]);
